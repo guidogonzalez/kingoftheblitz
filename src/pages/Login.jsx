@@ -152,7 +152,7 @@ export default function Login() {
                   "\n\n- Sábado: 21hs a 00hs" +
                   "\n\n- Domingo: 20hs a 22hs" +
                 autoClose: false,
-              })
+              });
             }
           >
             🕒 Horarios

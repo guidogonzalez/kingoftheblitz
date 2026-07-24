@@ -15,7 +15,9 @@ export default function RankingPanel() {
 
   return (
     <section className="ranking-panel">
-      <h2>Ranking</h2>
+      <div className="panel-header">
+        <h2>Ranking</h2>
+      </div>
 
       {rankingLoading ? (
         <div>Cargando...</div>

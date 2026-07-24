@@ -10,6 +10,29 @@ export function PlayerProvider({ children }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
+  const [ranking, setRanking] = useState({
+    players: [],
+    totalPages: 1,
+  });
+
+  const [rankingLoading, setRankingLoading] = useState(false);
+
+  const refreshRanking = async (page = 1) => {
+    setRankingLoading(true);
+
+    try {
+      const { data, error } = await matchService.getRanking(page);
+
+      if (!error && data) {
+        setRanking({
+          players: data.players,
+          totalPages: data.total_pages,
+        });
+      }
+    } finally {
+      setRankingLoading(false);
+    }
+  };
 
   useEffect(() => {
     async function restoreSession() {
@@ -50,7 +73,11 @@ export function PlayerProvider({ children }) {
   };
 
   const refreshPlayer = async (nickname = player?.nickname) => {
-    await Promise.all([refreshProfile(nickname), refreshHistory(nickname)]);
+    await Promise.all([
+      refreshProfile(nickname),
+      refreshHistory(nickname),
+      refreshRanking(),
+    ]);
   };
 
   const refreshHistory = async (nickname = player?.nickname) => {
@@ -110,12 +137,16 @@ export function PlayerProvider({ children }) {
       value={{
         player,
         profile,
+        history,
         loading,
         login,
         logout,
         refreshProfile,
         refreshHistory,
         refreshPlayer,
+        ranking,
+        rankingLoading,
+        refreshRanking,
       }}
     >
       {children}

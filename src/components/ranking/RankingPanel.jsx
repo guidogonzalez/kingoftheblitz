@@ -1,41 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-import matchService from "../../services/matchService";
+import { usePlayer } from "../../context/PlayerContext";
 
 import RankingRow from "./RankingRow";
 
 export default function RankingPanel() {
-  const [players, setPlayers] = useState([]);
+  const { ranking, rankingLoading, refreshRanking } = usePlayer();
 
   const [page, setPage] = useState(1);
 
-  const [totalPages, setTotalPages] = useState(1);
-
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    loadRanking(page);
+    refreshRanking(page);
   }, [page]);
-
-  async function loadRanking(pageNumber) {
-    setLoading(true);
-
-    const { data, error } = await matchService.getRanking(pageNumber);
-
-    if (!error && data) {
-      setPlayers(data.players);
-
-      setTotalPages(data.total_pages);
-    }
-
-    setLoading(false);
-  }
 
   return (
     <section className="ranking-panel">
       <h2>Ranking</h2>
 
-      {loading ? (
+      {rankingLoading ? (
         <div>Cargando...</div>
       ) : (
         <>
@@ -43,19 +25,15 @@ export default function RankingPanel() {
             <thead>
               <tr>
                 <th>#</th>
-
                 <th>Jugador</th>
-
                 <th>ELO</th>
-
                 <th>W/L</th>
-
                 <th>WR</th>
               </tr>
             </thead>
 
             <tbody>
-              {players.map((player) => (
+              {ranking.players.map((player) => (
                 <RankingRow key={player.nickname} player={player} />
               ))}
             </tbody>
@@ -67,11 +45,11 @@ export default function RankingPanel() {
             </button>
 
             <span>
-              Página {page} de {totalPages}
+              Página {page} de {ranking.totalPages}
             </span>
 
             <button
-              disabled={page === totalPages}
+              disabled={page === ranking.totalPages}
               onClick={() => setPage(page + 1)}
             >
               Siguiente →

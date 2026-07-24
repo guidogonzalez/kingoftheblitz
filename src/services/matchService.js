@@ -15,7 +15,6 @@ const matchService = {
   },
 
   async selectDecks(matchId, nickname, decks) {
-
     const { data, error } = await supabase.rpc("select_decks", {
       p_match_id: matchId,
       p_nickname: nickname,
@@ -66,6 +65,12 @@ const matchService = {
 
       p_page_size: pageSize,
     });
+  },
+
+  async checkQueueSchedule() {
+    const { data, error } = await supabase.rpc("check_queue_schedule");
+
+    return { data, error };
   },
 };
 

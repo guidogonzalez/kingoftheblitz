@@ -48,3 +48,7 @@ export async function leaveQueue(nickname) {
 
   return data;
 }
+
+export async function checkQueueSchedule() {
+  return await supabase.rpc("check_queue_schedule");
+}

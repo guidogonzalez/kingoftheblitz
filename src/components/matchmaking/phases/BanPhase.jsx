@@ -22,7 +22,7 @@ export default function BanPhase() {
     if (!match) return;
 
     const myAvailable = match.selectedDecks.me.filter(
-      (deck) => !match.myBan.includes(deck.name)
+      (deck) => !match.myBan.includes(deck.name),
     );
 
     if (myAvailable.length !== 1) return;
@@ -65,6 +65,12 @@ export default function BanPhase() {
     <div className="ban-phase">
       <h2>Fase de Baneos</h2>
 
+      <div className={`ban-turn ${canBan ? "mine" : "enemy"}`}>
+        {canBan
+          ? "🟠 Es tu turno de banear un mazo"
+          : "⏳ Esperando a que el rival elija un ban..."}
+      </div>
+
       <div className="ban-layout">
         <div className="ban-column">
           {leftDecksWithImages.map((deck) => (
@@ -78,7 +84,7 @@ export default function BanPhase() {
           ))}
         </div>
 
-        <div className="ban-vs">VS</div>
+        <div className="ban-vs"></div>
 
         <div className="ban-column">
           {rightDecksWithImages.map((deck) => (

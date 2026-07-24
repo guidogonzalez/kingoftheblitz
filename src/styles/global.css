@@ -707,68 +707,23 @@ tbody tr:hover {
 
 .ban-grid {
     display: flex;
-    gap: 20px;
     justify-content: center;
+    gap: 18px;
     flex-wrap: wrap;
-}
-
-.ban-card {
-    position: relative;
-    overflow: hidden;
-
-    background: #1f2937;
-    border: 1px solid #374151;
-    border-radius: 4px;
-
-    transition: all .25s ease;
-
-    cursor: pointer;
-}
-
-.ban-card:hover {
-
-    transform: translateY(-8px);
-
-    border-color: #f97316;
-
-    box-shadow: 0 10px 25px rgba(249, 115, 22, .35);
-
-}
-
-.ban-card:hover .ban-image {
-
-    transform: scale(1.04);
-
-}
-
-.ban-image {
-    width: 100%;
-    height: 310px;
-    object-fit: cover;
-}
-
-.ban-card h3 {
-    margin: 12px;
-    font-size: 16px;
-}
-
-.ban-card button {
-    width: calc(100% - 20px);
-    margin: 10px;
 }
 
 .ban-layout {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
-    gap: 40px;
+    gap: 70px;
     margin-top: 30px;
 }
 
 .ban-column {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
 }
 
@@ -776,55 +731,128 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
-    font-weight: bold;
     min-width: 80px;
+    font-size: 42px;
+    font-weight: bold;
 }
 
 .ban-card {
+    position: relative;
+
+    width: 175px;
+
     background: #1f2937;
-    border-radius: 4px;
+
     border: 1px solid #374151;
+
+    border-radius: 8px;
+
     overflow: hidden;
+
+    transition: .25s;
+
     text-align: center;
-    padding-bottom: 15px;
+}
+
+.ban-layout:hover .ban-card {
+    opacity: .45;
+}
+
+.ban-layout:hover .ban-card:hover {
+    opacity: 1;
+}
+
+.ban-card:hover {
+    transform: translateY(-6px);
+    border-color: #FF6A00;
+    box-shadow: 0 10px 25px rgba(255, 106, 0, .35);
 }
 
 .ban-image {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 0.72;
     object-fit: cover;
+    display: block;
 }
 
-.ban-card {
+.ban-card:hover .ban-image {
+    transform: scale(1.03);
+}
 
-    position: relative;
+.ban-card h3 {
 
-    overflow: hidden;
+    margin: 12px 10px 8px;
 
+    font-size: 15px;
+
+    min-height: 40px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+.ban-button {
+
+    width: calc(100% - 20px);
+
+    margin: 0 10px 12px;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 4px;
+
+    background: #FF6A00;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.ban-button:hover {
+    background: #ff8226;
+}
+
+.ban-button:disabled {
+    background: #777;
+    cursor: not-allowed;
 }
 
 .banned {
-
     filter: grayscale(100%);
-
     opacity: .45;
+}
 
+.playing {
+    border: 3px solid #16a34a;
+    box-shadow: 0 0 15px #16a34a;
 }
 
 .ban-ribbon {
 
     position: absolute;
 
-    top: 28px;
+    top: 26px;
 
-    left: -60px;
+    left: -65px;
 
-    width: 240px;
+    width: 230px;
+
+    transform: rotate(-35deg);
 
     text-align: center;
 
-    transform: rotate(-35deg);
+    padding: 8px 0;
 
     font-weight: bold;
 
@@ -832,64 +860,68 @@ tbody tr:hover {
 
     color: white;
 
-    padding: 8px 0;
-
-    z-index: 20;
-
+    z-index: 10;
 }
 
 .banned-ribbon {
-
     background: #dc2626;
-
 }
 
 .playing-ribbon {
-
     background: #16a34a;
+}
+
+.ban-turn {
+
+    margin-bottom: 25px;
+
+    padding: 14px 20px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
 
 }
 
-.playing {
+.ban-turn.mine{
 
-    border: 3px solid #16a34a;
-
-    box-shadow: 0 0 15px #16a34a;
+    animation:pulseTurn 1.5s infinite;
 
 }
 
-.ban-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 4px;
-    background: #FF6A00;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
+@keyframes pulseTurn{
 
-.ban-button:hover {
-    background: #f57c00;
-}
+    0%{
 
-.ban-button:disabled {
-    background: #bdbdbd;
-    cursor: not-allowed;
-}
+        box-shadow:0 0 0 rgba(255,106,0,.4);
 
-.ban-layout:hover .ban-card {
+    }
 
-    opacity: .45;
+    50%{
+
+        box-shadow:0 0 18px rgba(255,106,0,.7);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(255,106,0,.4);
+
+    }
 
 }
 
-.ban-layout:hover .ban-card:hover {
+.ban-turn.enemy {
 
-    opacity: 1;
+    background: #374151;
+
+    color: #d1d5db;
 
 }
 

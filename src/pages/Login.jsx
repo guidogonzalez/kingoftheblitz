@@ -144,9 +144,13 @@ export default function Login() {
                 type: "info",
                 title: "Horarios",
                 message:
-                  "El ganador de cada temporada recibirá:" +
-                  "\n\n📦 Una caja del set más reciente de Digimon Card Game disponible en ese momento." +
-                  "\n\nPara que el ranking refleje una participación real, el premio solo se entregará si los jugadores que finalicen en el Top 10 han disputado al menos 20 partidas durante la temporada.",
+                  "- Lunes: 20hs a 22hs" +
+                  "\n\n- Martes: 21hs a 23hs" +
+                  "\n\n- Miércoles: 20hs a 22hs" +
+                  "\n\n- Jueves: 21hs a 23hs" +
+                  "\n\n- Viernes: 21hs a 00hs" +
+                  "\n\n- Sábado: 21hs a 00hs" +
+                  "\n\n- Domingo: 20hs a 22hs" +
                 autoClose: false,
               })
             }

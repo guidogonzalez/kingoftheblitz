@@ -23,6 +23,7 @@ Durante ese tiempo simplemente tendrás que entrar en la plataforma, pulsar Busc
 Sin rondas. Sin esperas. Sin estar atado a un torneo durante toda la tarde.
 
 Si necesitas irte, simplemente dejas de buscar partidas y listo. Tus estadísticas y tu progreso permanecerán intactos.`,autoClose:!1}),children:`🏆 ¿Qué es King of the Blitz?`}),(0,x.jsx)(`button`,{onClick:()=>t({type:`info`,title:`Formato`,message:`Las partidas serán BO1, pero no perderán el componente estratégico.
+
 Cada enfrentamiento seguirá este procedimiento:
 -Cada jugador seleccionará 3 decks.
 -Se realizará una fase de baneos.
@@ -38,7 +39,7 @@ A medida que aumente el número de jugadores, el sistema ajustará automáticame
 
 📦 Una caja del set más reciente de Digimon Card Game disponible en ese momento.
 
-Para que el ranking refleje una participación real, el premio solo se entregará si los jugadores que finalicen en el Top 10 han disputado al menos 15 partidas durante la temporada.`,autoClose:!1}),children:`🎁 Premios`}),(0,x.jsx)(`button`,{onClick:()=>t({type:`info`,title:`Horarios`,message:`- Lunes: 20hs a 22hs
+Para que el ranking refleje una participación real, el premio solo se entregará si los jugadores que finalicen en el Top 10 han disputado al menos 20 partidas durante la temporada.`,autoClose:!1}),children:`🎁 Premios`}),(0,x.jsx)(`button`,{onClick:()=>t({type:`info`,title:`Horarios`,message:`- Lunes: 20hs a 22hs
 
 - Martes: 21hs a 23hs
 

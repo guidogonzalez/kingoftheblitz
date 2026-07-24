@@ -2,12 +2,14 @@ const STORAGE_KEY = "kotb-player";
 import { createContext, useContext, useState, useEffect } from "react";
 import { connectPlayer } from "../services/playerService";
 import { refreshPlayerProfile } from "../services/playerService";
+import matchService from "../services/matchService";
 const PlayerContext = createContext(null);
 
 export function PlayerProvider({ children }) {
   const [player, setPlayer] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     async function restoreSession() {
@@ -24,9 +26,7 @@ export function PlayerProvider({ children }) {
 
         setPlayer(savedPlayer);
 
-        const profileData = await refreshPlayerProfile(savedPlayer.nickname);
-
-        setProfile(profileData);
+        await refreshPlayer(savedPlayer.nickname);
       } catch (error) {
         console.error(error);
 
@@ -49,13 +49,28 @@ export function PlayerProvider({ children }) {
     return data;
   };
 
+  const refreshPlayer = async (nickname = player?.nickname) => {
+    await Promise.all([refreshProfile(nickname), refreshHistory(nickname)]);
+  };
+
+  const refreshHistory = async (nickname = player?.nickname) => {
+    if (!nickname) return [];
+
+    const result = await matchService.getMatchHistory(nickname);
+
+    const matches = result.data ?? [];
+
+    setHistory(matches);
+
+    return matches;
+  };
+
   async function login(nickname, password) {
     setLoading(true);
 
     try {
       const data = await connectPlayer(nickname, password);
 
-      console.log(data);
       if (!data.found) {
         return {
           success: false,
@@ -63,13 +78,11 @@ export function PlayerProvider({ children }) {
         };
       }
 
-      const profileData = await refreshPlayerProfile(data.nickname);
-
       setPlayer(data);
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 
-      setProfile(profileData);
+      await refreshPlayer(data.nickname);
 
       return {
         success: true,
@@ -81,7 +94,6 @@ export function PlayerProvider({ children }) {
         success: false,
         message: "Ha ocurrido un error inesperado.",
       };
-      
     } finally {
       setLoading(false);
     }
@@ -102,6 +114,8 @@ export function PlayerProvider({ children }) {
         login,
         logout,
         refreshProfile,
+        refreshHistory,
+        refreshPlayer,
       }}
     >
       {children}

@@ -15,11 +15,6 @@ const matchService = {
   },
 
   async selectDecks(matchId, nickname, decks) {
-    console.log({
-      matchId,
-      nickname,
-      decks,
-    });
 
     const { data, error } = await supabase.rpc("select_decks", {
       p_match_id: matchId,
@@ -28,8 +23,6 @@ const matchService = {
       p_deck2: decks[1],
       p_deck3: decks[2],
     });
-
-    console.log("select_decks:", data);
 
     if (error) {
       console.error("select_decks error:", error);

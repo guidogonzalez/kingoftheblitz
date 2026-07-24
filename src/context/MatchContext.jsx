@@ -8,7 +8,7 @@ import { useModal } from "./ModalContext";
 const MatchContext = createContext();
 
 export function MatchProvider({ children }) {
-  const { player } = usePlayer();
+  const { player, refreshPlayer } = usePlayer();
   const { showModal } = useModal();
   const [match, setMatch] = useState(null);
   const [lastStatus, setLastStatus] = useState(null);
@@ -16,8 +16,6 @@ export function MatchProvider({ children }) {
   async function refreshMatch() {
     try {
       const data = await matchService.getActiveMatch(player.nickname);
-
-      console.log("DATA:", data);
 
       if (!data.active) {
         setMatch(null);
@@ -53,6 +51,8 @@ export function MatchProvider({ children }) {
           await selectFinalDeck(mapped.id, myAvailable[0].name);
         }
       }
+
+      return mapped;
     } catch (error) {
       console.error(error);
     }
@@ -71,20 +71,25 @@ export function MatchProvider({ children }) {
           table: "matches",
         },
         async (payload) => {
+
+          console.log(payload);
           const p1 = payload.new.player1?.toLowerCase();
           const p2 = payload.new.player2?.toLowerCase();
           const me = player.nickname.toLowerCase();
 
           if (p1 !== me && p2 !== me) return;
 
-          console.log("Nueva partida encontrada");
-
           await loadMatch();
+
+          showModal({
+            type: "info",
+            title: "¡Has encontrado rival!",
+            message: `${payload.new.player1}  vs ${payload.new.player2}`,
+            autoClose: true,
+          });
         },
       )
-      .subscribe((status) => {
-        console.log("Estado waiting:", status);
-      });
+      .subscribe((status) => {});
 
     return () => {
       supabase.removeChannel(channel);
@@ -106,10 +111,8 @@ export function MatchProvider({ children }) {
         },
         async (payload) => {
           if (payload.new.status === "finished") {
-            console.log('playerid ' + player.id);
             const iWon = payload.new.winner === player.id;
-            console.log('paylod');
-            console.log(payload.new);
+
             showModal({
               type: iWon ? "success" : "error",
               title: iWon ? "¡Victoria!" : "Derrota",
@@ -118,6 +121,8 @@ export function MatchProvider({ children }) {
                 : `Has perdido la partida.\n\n${payload.new.loser_elo_change} ELO\n${payload.new.loser_old_elo} → ${payload.new.loser_new_elo}`,
               autoClose: true,
             });
+
+            await refreshPlayer();
 
             setMatch(null);
             return;
@@ -134,8 +139,6 @@ export function MatchProvider({ children }) {
   }, [match?.id]);
 
   async function confirmDecks(selectedDecks) {
-    console.log(selectedDecks);
-
     try {
       await matchService.selectDecks(match.id, player.nickname, selectedDecks);
     } catch (error) {
@@ -144,7 +147,7 @@ export function MatchProvider({ children }) {
   }
 
   async function loadMatch() {
-    await refreshMatch();
+    return await refreshMatch();
   }
 
   useEffect(() => {
@@ -168,8 +171,6 @@ export function MatchProvider({ children }) {
         player.nickname,
         deckName,
       );
-
-      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -186,8 +187,6 @@ export function MatchProvider({ children }) {
       console.error(error);
       return;
     }
-
-    console.log(data);
   }
 
   return (
@@ -225,7 +224,7 @@ export function MatchProvider({ children }) {
           : `Has perdido la partida.\n\n${elo.loser_elo_change} ELO\n${elo.loser_old_elo} → ${elo.loser_new_elo}`,
         autoClose: true,
       });
-
+      await refreshPlayer();
       setMatch(null);
     } catch (err) {
       console.error(err);

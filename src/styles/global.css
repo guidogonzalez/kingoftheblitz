@@ -1185,13 +1185,43 @@ tbody tr:hover {
 .history-panel {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+
+    height: 700px;
+    /* Ajusta el valor a tu gusto */
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding-right: 8px;
 }
 
 .history-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 999px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
 }
 
 .history-empty {
@@ -1740,4 +1770,47 @@ tbody tr:hover {
 
     margin-top: 24px;
 
+}
+
+.deck-remove {
+    width: 24px;
+    height: 24px;
+
+    border: 1px;
+    border-radius: 4px;
+
+    background: #d32f2f;
+    color: white;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s;
+}
+
+.deck-remove:hover {
+    background: #b71c1c;
+    transform: scale(1.1);
+}
+
+.deck-item span {
+    flex: 1;
+}
+
+.deck-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 12px;
+    margin-bottom: 8px;
+
+    background: #2b2b2b;
+    border-radius: 4px;
 }

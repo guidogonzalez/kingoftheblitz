@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMatch } from "../../../context/MatchContext";
 import { decks } from "../../../data/decks";
+import { useModal } from "../../../context/ModalContext";
 
 export default function DeckSelection() {
   const { match, setMatch, confirmDecks } = useMatch();
@@ -12,15 +13,34 @@ export default function DeckSelection() {
     deck.name.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const { showModal } = useModal();
+
   function addDeck(deck) {
     if (match.meDecksConfirmed) return;
 
-    if (selectedDecks.some((d) => d.name === deck.name)) return;
+    if (selectedDecks.some((d) => d.name === deck.name)) {
+      showModal({
+        type: "warning",
+        title: "Deck duplicado",
+        message: `Ya has seleccionado "${deck.name}".`,
+        autoClose: true,
+      });
 
-    if (selectedDecks.length >= 3) return;
+      return;
+    }
+
+    if (selectedDecks.length >= 3) {
+      showModal({
+        type: "warning",
+        title: "Límite alcanzado",
+        message: "Solo puedes seleccionar 3 decks.",
+        autoClose: true,
+      });
+
+      return;
+    }
 
     setSelectedDecks([...selectedDecks, deck]);
-
     setSearch("");
   }
 
@@ -81,7 +101,7 @@ export default function DeckSelection() {
 
       <button
         className="confirm-button"
-        disabled={selectedDecks.length !== 3}
+        disabled={selectedDecks.length !== 3 || match.meDecksConfirmed}
         onClick={() => confirmDecks(selectedDecks.map((deck) => deck.name))}
       >
         Confirmar decks

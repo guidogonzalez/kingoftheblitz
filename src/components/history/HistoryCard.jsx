@@ -13,8 +13,6 @@ export default function HistoryCard({ match }) {
     finished_at,
   } = match;
 
-  console.log(match);
-
   const myDeck = useMemo(
     () => decks.find((d) => d.name === my_deck),
     [my_deck],

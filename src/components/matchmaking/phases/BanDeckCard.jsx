@@ -17,7 +17,6 @@ export default function BanDeckCard({
 
       {canBan && !banned && (
         <button className="ban-button" onClick={() => {
-          console.log("Click en", deck.name);
           onBan(deck.name)
         }}>
           BAN

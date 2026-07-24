@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePlayer } from "../../context/PlayerContext";
 import { joinQueue, leaveQueue } from "../../services/playerService";
 import { useMatch } from "../../context/MatchContext";
 import { supabase } from "../../services/supabase";
+import { useModal } from "../../context/ModalContext";
 
 export default function QueuePanel({ embedded = false }) {
   const [searching, setSearching] = useState(false);
   const { player } = usePlayer();
   const { match, loadMatch } = useMatch();
+  const { showModal } = useModal();
+
+  useEffect(() => {
+    if (!match) {
+      setSearching(false);
+    }
+  }, [match]);
+
   if (match) {
     return null;
   }
@@ -16,7 +25,14 @@ export default function QueuePanel({ embedded = false }) {
       const result = await joinQueue(player.nickname);
 
       if (result.matched) {
-        await loadMatch();
+        const match = await loadMatch();
+
+        showModal({
+          type: "info",
+          title: "¡Has encontrado rival!",
+          message: `${match.player1.nickname} vs ${match.player2.nickname}`,
+          autoClose: true,
+        });
         return;
       }
 

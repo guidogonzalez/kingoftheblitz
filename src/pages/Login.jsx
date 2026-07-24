@@ -79,7 +79,7 @@ export default function Login() {
                 title: "Formato",
                 message:
                   "Las partidas serán BO1, pero no perderán el componente estratégico." +
-                  "\nCada enfrentamiento seguirá este procedimiento:" +
+                  "\n\nCada enfrentamiento seguirá este procedimiento:" +
                   "\n-Cada jugador seleccionará 3 decks." +
                   "\n-Se realizará una fase de baneos." +
                   "\n-Tras los baneos, cada jugador jugará con el deck restante." +
@@ -130,7 +130,7 @@ export default function Login() {
                 message:
                   "El ganador de cada temporada recibirá:" +
                   "\n\n📦 Una caja del set más reciente de Digimon Card Game disponible en ese momento." +
-                  "\n\nPara que el ranking refleje una participación real, el premio solo se entregará si los jugadores que finalicen en el Top 10 han disputado al menos 15 partidas durante la temporada.",
+                  "\n\nPara que el ranking refleje una participación real, el premio solo se entregará si los jugadores que finalicen en el Top 10 han disputado al menos 20 partidas durante la temporada.",
                 autoClose: false,
               })
             }

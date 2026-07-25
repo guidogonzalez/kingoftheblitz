@@ -16,9 +16,12 @@ export default function BanDeckCard({
       <h3>{deck.name}</h3>
 
       {canBan && !banned && (
-        <button className="ban-button" onClick={() => {
-          onBan(deck.name)
-        }}>
+        <button
+          className="ban-button"
+          onClick={() => {
+            onBan(deck.name);
+          }}
+        >
           BAN
         </button>
       )}

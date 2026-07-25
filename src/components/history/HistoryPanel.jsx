@@ -7,7 +7,7 @@ export default function HistoryPanel() {
   return (
     <section className="history-panel">
       <div className="panel-header">
-        <h2>Historial de partidas</h2>
+        <h2>Últimas 10 partidas</h2>
       </div>
 
       {loading ? (

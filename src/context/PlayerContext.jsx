@@ -17,11 +17,11 @@ export function PlayerProvider({ children }) {
 
   const [rankingLoading, setRankingLoading] = useState(false);
 
-  const refreshRanking = async (page = 1) => {
+  const refreshRanking = async () => {
     setRankingLoading(true);
 
     try {
-      const { data, error } = await matchService.getRanking(page);
+      const { data, error } = await matchService.getRanking();
 
       if (!error && data) {
         setRanking({
@@ -80,17 +80,18 @@ export function PlayerProvider({ children }) {
     ]);
   };
 
-  const refreshHistory = async (nickname = player?.nickname) => {
-    if (!nickname) return [];
+  async function refreshHistory(nickname) {
+    setLoading(true);
 
-    const result = await matchService.getMatchHistory(nickname);
+    const { data, error } = await matchService.getMatchHistory(nickname);
 
-    const matches = result.data ?? [];
 
-    setHistory(matches);
+    if (!error) {
+      setHistory(data);
+    }
 
-    return matches;
-  };
+    setLoading(false);
+  }
 
   async function login(nickname, password) {
     setLoading(true);

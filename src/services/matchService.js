@@ -60,11 +60,7 @@ const matchService = {
   },
 
   async getRanking(page = 1, pageSize = 10) {
-    return await supabase.rpc("get_ranking", {
-      p_page: page,
-
-      p_page_size: pageSize,
-    });
+    return await supabase.rpc("get_ranking");
   },
 
   async checkQueueSchedule() {

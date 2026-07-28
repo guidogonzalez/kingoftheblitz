@@ -144,13 +144,13 @@ export default function Login() {
                 type: "info",
                 title: "Horarios",
                 message:
-                  "- Lunes: 20hs a 22hs" +
-                  "\n\n- Martes: 21hs a 23hs" +
-                  "\n\n- Miércoles: 20hs a 22hs" +
-                  "\n\n- Jueves: 21hs a 23hs" +
+                  "- Lunes: 20hs a 23hs" +
+                  "\n\n- Martes: 21hs a 00hs" +
+                  "\n\n- Miércoles: 20hs a 23hs" +
+                  "\n\n- Jueves: 21hs a 00hs" +
                   "\n\n- Viernes: 21hs a 00hs" +
                   "\n\n- Sábado: 21hs a 00hs" +
-                  "\n\n- Domingo: 20hs a 22hs",
+                  "\n\n- Domingo: 20hs a 23hs",
                 autoClose: false,
               })
             }

@@ -1846,3 +1846,47 @@ tbody tr:hover {
     background: #2b2b2b;
     border-radius: 4px;
 }
+
+.initiative-turn {
+
+    margin-bottom: 25px;
+
+    padding: 14px 20px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+}
+
+.initiative-turn.mine {
+
+    animation: pulseTurn 1.5s infinite;
+
+}
+
+.initiative-rolls {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    margin-bottom: 10px;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+}
+
+.initiative-result {
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+}

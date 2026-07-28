@@ -108,6 +108,10 @@ export const decks = [
     image: "https://images.digimoncard.io/images/cards/BT23-101.webp",
   },
   {
+    name: "Royal Knights",
+    image: "https://images.digimoncard.io/images/cards/BT13-007.webp",
+  },
+  {
     name: "ShineGreymon",
     image: "https://images.digimoncard.io/images/cards/BT25-104.webp",
   },
@@ -150,6 +154,10 @@ export const decks = [
   {
     name: "Abaddomon",
     image: "https://images.digimoncard.io/images/cards/EX9-057.webp",
+  },
+  {
+    name: "Adventure",
+    image: "https://images.digimoncard.io/images/cards/ST20-14.webp",
   },
   {
     name: "Creepymon",

@@ -21,6 +21,13 @@ export default function PlayingPhase() {
   const leftDeck = amIPlayer1 ? myDeck : opponentDeck;
   const rightDeck = amIPlayer1 ? opponentDeck : myDeck;
 
+  const myRoll = amIPlayer1 ? match.player1Roll : match.player2Roll;
+
+  const opponentRoll = amIPlayer1 ? match.player2Roll : match.player1Roll;
+
+  const amIFirst =
+    match.firstPlayer?.toLowerCase() === player.nickname.toLowerCase();
+
   const handleWin = () => {
     finishMatch(player.nickname);
   };
@@ -33,9 +40,21 @@ export default function PlayingPhase() {
     <div className="playing-phase">
       <h2>Partida en curso</h2>
 
+      <div className={`initiative-turn ${amIFirst ? "mine" : ""}`}>
+        <div className="initiative-rolls">
+          <span>🎲 Tú: {myRoll}</span>
+          <span>🎲 Rival: {opponentRoll}</span>
+        </div>
+
+        <div className="initiative-result">
+          {amIFirst
+            ? "Empiezas primero"
+            : `${match.firstPlayer} empieza primero`}
+        </div>
+      </div>
+
       <div className="playing-layout">
         <div className="playing-column">
-
           <div className="playing-card">
             <img src={leftDeck.image} alt={leftDeck.name} />
             <h4>{leftDeck.name}</h4>
@@ -45,7 +64,6 @@ export default function PlayingPhase() {
         <div className="playing-vs">VS</div>
 
         <div className="playing-column">
-
           <div className="playing-card">
             <img src={rightDeck.image} alt={rightDeck.name} />
             <h4>{rightDeck.name}</h4>

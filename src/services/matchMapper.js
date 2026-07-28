@@ -21,23 +21,18 @@ export function mapMatch(data) {
     opponentNickname: data.opponent,
 
     selectedDecks: {
-      me: (data.my_decks ?? [])
-        .filter(Boolean)
-        .map((name) => ({
-          name,
-          image: "",
-        })),
+      me: (data.my_decks ?? []).filter(Boolean).map((name) => ({
+        name,
+        image: "",
+      })),
 
-      opponent: (data.opponent_decks ?? [])
-        .filter(Boolean)
-        .map((name) => ({
-          name,
-          image: "",
-        })),
+      opponent: (data.opponent_decks ?? []).filter(Boolean).map((name) => ({
+        name,
+        image: "",
+      })),
     },
 
-    meDecksConfirmed:
-      (data.my_decks ?? []).filter(Boolean).length === 3,
+    meDecksConfirmed: (data.my_decks ?? []).filter(Boolean).length === 3,
 
     opponentDecksConfirmed:
       (data.opponent_decks ?? []).filter(Boolean).length === 3,
@@ -55,6 +50,12 @@ export function mapMatch(data) {
     opponentFinalDeck: data.opponent_final_deck,
 
     banTurn: data.ban_turn,
+
+    player1Roll: data.player1Roll,
+
+    player2Roll: data.player2Roll,
+
+    firstPlayer: data.firstPlayer,
   };
 }
 

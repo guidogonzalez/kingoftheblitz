@@ -63,6 +63,15 @@ export default function QueuePanel({ embedded = false }) {
         return;
       }
 
+      if (!result.matched) {
+        await supabase.functions.invoke("discord-queue-notify", {
+          body: {
+            action: "search",
+            nickname: player.nickname,
+          },
+        });
+      }
+
       setSearching(true);
     } catch (error) {
       console.error(error);
@@ -71,6 +80,13 @@ export default function QueuePanel({ embedded = false }) {
   async function handleCancel() {
     try {
       await leaveQueue(player.nickname);
+
+      await supabase.functions.invoke("discord-queue-notify", {
+        body: {
+          action: "cancel",
+          nickname: player.nickname,
+        },
+      });
 
       setSearching(false);
     } catch (error) {
